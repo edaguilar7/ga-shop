@@ -2,6 +2,7 @@ import { createContext, ReactChild, useState, useCallback, useMemo } from 'react
 import { Loadable } from 'types/state';
 import { Product } from 'types/product';
 import { initLoadable, setData, setLoading } from 'utils/state';
+import { AppEndpoints } from 'config/endpoints';
 import axios from 'axios';
 
 type CategoriesState = {
@@ -30,8 +31,10 @@ export const StockProvider = ({ children }: { children: ReactChild }) => {
   const loadCategories = useCallback(async () => {
     try {
       setCategories(setLoading(categories, true));
-      const response = await axios.get<string[]>('');
-      setCategories(setData(categories, response.data));
+      const response = await axios.get<string[]>(AppEndpoints.allCategories);
+
+      const mergedCategories = ['all'].concat(response.data);
+      setCategories(setData(categories, mergedCategories));
     } catch (error) {
       setCategories(setLoading(categories, false, error as Error));
     }

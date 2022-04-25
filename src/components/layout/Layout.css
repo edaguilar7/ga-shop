@@ -1,0 +1,25 @@
+.app-layout .logo {
+  float: right;
+  width: 75px;
+  height: 31px;
+  margin: 16px 0 16px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.app-layout .help-icon,
+.app-layout .cart-icon {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.app-layout .help-icon {
+  fill: none;
+}
+
+.app-layout .cart-icon {
+  fill: white;
+}
+
