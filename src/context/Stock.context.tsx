@@ -22,7 +22,7 @@ const initialState: CategoriesState = {
 
 export const StockContext = createContext<CategoriesState>(initialState);
 
-export const CategoriesProvider = ({ children }: { children: ReactChild }) => {
+export const StockProvider = ({ children }: { children: ReactChild }) => {
   const [categories, setCategories] = useState(initialState.categories);
   const [products, setProducts] = useState(initialState.products);
   const [activeCategory, setActiveCategory] = useState('');

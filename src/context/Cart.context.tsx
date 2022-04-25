@@ -15,7 +15,7 @@ const initialState: CartState = {
   removeItem: () => undefined,
 };
 
-const CartContext = createContext(initialState);
+export const CartContext = createContext(initialState);
 
 export const CartProvider = ({ children }: { children: ReactChild }) => {
   const [items, setItems] = useState<Product[]>([]);
