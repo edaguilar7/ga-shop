@@ -3,12 +3,12 @@ export const AppPaths = {
     path: '/categories',
     label: 'Categories',
   },
-  products: {
-    path: '/products',
-    label: 'Products',
+  category: {
+    path: (id: number) => `/categories/${id}`,
+    label: 'Category',
   },
   product: {
-    path: '/products/:id',
+    path: '/product/:id',
     label: 'Product',
   },
   shoppingCart: {
