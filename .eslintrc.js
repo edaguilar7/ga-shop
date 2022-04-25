@@ -30,7 +30,7 @@ module.exports = {
     'react/require-default-props': 'off',
     'react/jsx-props-no-spreading': 'off',
     'no-param-reassign': 'off',
-    "react/jsx-no-constructed-context-values": "warn",
+    'react/jsx-no-constructed-context-values': 'warn',
     'import/extensions': [
       'error',
       'ignorePackages',
@@ -41,5 +41,7 @@ module.exports = {
         tsx: 'never',
       },
     ],
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': ['error'],
   },
 };

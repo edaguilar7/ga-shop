@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { createContext, useState, ReactChild, useCallback, useMemo } from 'react';
 import { Product } from 'types/product';
 
@@ -10,10 +9,10 @@ type CartState = {
 };
 
 const initialState: CartState = {
-  addItem: () => {},
-  clear: () => {},
+  addItem: () => undefined,
+  clear: () => undefined,
   items: [],
-  removeItem: () => {},
+  removeItem: () => undefined,
 };
 
 const CartContext = createContext(initialState);

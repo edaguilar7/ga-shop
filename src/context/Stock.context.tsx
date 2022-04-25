@@ -9,7 +9,6 @@ type CategoriesState = {
   products: Loadable<Map<string, Product[]>>;
   loadCategories: () => Promise<void>;
   activeCategory: string;
-  // eslint-disable-next-line no-unused-vars
   loadCategory: (categoryId: string) => Promise<void>;
 };
 
