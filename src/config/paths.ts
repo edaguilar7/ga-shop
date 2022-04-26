@@ -1,14 +1,10 @@
 export const AppPaths = {
-  categories: {
-    path: '/categories',
-    label: 'Categories',
-  },
-  category: {
-    path: (category: string) => `/categories/${category}`,
-    label: 'Category',
+  products: {
+    path: '/products',
+    label: 'Product',
   },
   product: {
-    path: '/product/:id',
+    path: '/products/:id',
     label: 'Product',
   },
   shoppingCart: {

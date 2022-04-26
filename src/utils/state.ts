@@ -22,8 +22,12 @@ export const setLoading = <T>(
 export const setData = <T>(node: Loadable<T>, data: T): Loadable<T> => {
   const nodeClone = setLoading(node, false);
   nodeClone.data = data;
+
   return nodeClone;
 };
 
 export const shouldLoadData = <T>(loadable: Loadable<T>): boolean =>
   !loadable.isDirty && !loadable.isLoading && !loadable.error;
+
+export const hasSuccessfullyLoaded = <T>(loadable: Loadable<T>): boolean =>
+  loadable.isDirty && !loadable.isLoading && !loadable.error;
