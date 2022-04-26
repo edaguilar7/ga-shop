@@ -17,8 +17,8 @@ export const AppRoutes = () => (
       <Route element={<Layout />}>
         <Route index element={<Navigate to={AppPaths.categories.path} />} />
         <Route path={AppPaths.categories.path}>
-          <Route path=":id" element={<CategoryPage />} />
           <Route index element={<CategoriesPage />} />
+          <Route path=":id" element={<CategoryPage />} />
         </Route>
         <Route path={AppPaths.orderConfirmation.path} element={<OrderConfirmationPage />} />
         <Route path={AppPaths.product.path} element={<ProductPage />} />

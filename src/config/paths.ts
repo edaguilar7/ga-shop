@@ -4,7 +4,7 @@ export const AppPaths = {
     label: 'Categories',
   },
   category: {
-    path: (id: number) => `/categories/${id}`,
+    path: (category: string) => `/categories/${category}`,
     label: 'Category',
   },
   product: {
