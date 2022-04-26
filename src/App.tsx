@@ -6,7 +6,9 @@ import { Spin } from 'antd';
 const App = () => (
   <CartProvider>
     <StockProvider>
-      <Suspense fallback={<Spin tip="Loading page..." />}>
+      <Suspense
+        fallback={<Spin tip="Loading page..." style={{ width: '100%', marginTop: '2rem' }} />}
+      >
         <AppRoutes />
       </Suspense>
     </StockProvider>

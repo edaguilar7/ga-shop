@@ -14,13 +14,7 @@ const Products = () => {
   }, [products]);
 
   if (products.isLoading) {
-    return (
-      <Spin
-        tip="Loading products..."
-        spinning={products.isLoading}
-        style={{ width: '100%', marginTop: '2rem' }}
-      />
-    );
+    return <Spin tip="Loading products..." spinning style={{ width: '100%', marginTop: '2rem' }} />;
   }
 
   return (
@@ -28,6 +22,7 @@ const Products = () => {
       {products.data.map((product) => (
         <Link key={product.id} to={`${AppPaths.products.path}/${product.id}`}>
           <Card
+            key={product.id}
             hoverable
             style={{ width: 240 }}
             cover={<img alt={product.title} src={product.image} />}
