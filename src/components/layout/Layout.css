@@ -1,3 +1,4 @@
+.app-layout .home-icon,
 .app-layout .help-icon,
 .app-layout .cart-icon {
   width: 30px;
@@ -11,12 +12,21 @@
   padding: 0 25px !important;
 }
 
+.app-layout a {
+  display: contents;
+}
+
 .app-layout .help-icon {
   fill: none;
+  margin-left: 1.5rem;
 }
 
 .app-layout .cart-icon {
   fill: white;
-  margin-left: 1rem;
+  margin-left: 1.5rem;
+}
+
+.app-layout .home-icon {
+  fill: white;
 }
 

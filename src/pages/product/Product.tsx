@@ -1,8 +1,9 @@
 import { useEffect, useContext } from 'react';
-import { Spin, Table, Rate } from 'antd';
+import { Spin, Table, Rate, Button } from 'antd';
 import { Product as ProductType } from 'types/product';
 import { ColumnsType } from 'antd/lib/table';
-import { StockContext } from 'context';
+import { CartIcon } from 'components/icons';
+import { StockContext, CartContext } from 'context';
 import { useParams } from 'react-router-dom';
 import { shouldLoadData } from 'utils/state';
 import './Product.css';
@@ -10,6 +11,7 @@ import './Product.css';
 const Product = () => {
   const { id } = useParams<{ id: string }>();
   const { activeProduct, loadProductById, resetActiveProduct } = useContext(StockContext);
+  const { addItem, removeItem, checkItemAlreadyInCart } = useContext(CartContext);
 
   useEffect(() => {
     if (Number(id) !== activeProduct.data.id) {
@@ -75,6 +77,28 @@ const Product = () => {
       <span className="product-detail-meta-container">
         <h1>{activeProduct.data.title}</h1>
         <p>{activeProduct.data.description}</p>
+
+        {checkItemAlreadyInCart(activeProduct.data) ? (
+          <Button
+            onClick={() => removeItem(activeProduct.data)}
+            className="remove-from-cart-button"
+            type="primary"
+            danger
+          >
+            <CartIcon />
+            Remove from cart
+          </Button>
+        ) : (
+          <Button
+            onClick={() => addItem(activeProduct.data)}
+            className="add-to-cart-button"
+            type="primary"
+          >
+            <CartIcon />
+            Add to cart
+          </Button>
+        )}
+
         <Table
           pagination={false}
           columns={columns}
