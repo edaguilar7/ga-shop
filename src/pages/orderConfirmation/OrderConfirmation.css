@@ -1,0 +1,20 @@
+.order-confirmation {
+  padding: 2em;
+}
+
+.order-confirmation .order-confirmation-total {
+  float: right;
+  padding-right: 0.5em;
+  margin: 1em 0 0;
+  font-size: 18px;
+}
+
+.order-confirmation .order-confirmation-form {
+  margin-top: 3rem;
+}
+
+.order-confirmation .order-confirmation-submit {
+  background-color: #001529;
+  border-color: transparent;
+  color: white;
+}

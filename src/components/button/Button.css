@@ -1,0 +1,7 @@
+.app-button,
+.app-button:focus,
+.app-button:hover {
+  background-color: #001529;
+  color: white;
+  border-color: transparent;
+}
