@@ -1,7 +1,7 @@
 export const AppPaths = {
   products: {
     path: '/products',
-    label: 'Product',
+    label: 'Products',
   },
   product: {
     path: '/products/:id',

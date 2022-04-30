@@ -1,5 +1,5 @@
 import { Layout as AntdLayout, Badge, BadgeProps } from 'antd';
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet, Link, useLocation } from 'react-router-dom';
 import { HelpIcon, CartIcon, HomeIcon } from 'components/icons';
 import { useContext, useEffect } from 'react';
 import { CartContext } from 'context';
@@ -11,6 +11,7 @@ const { Header, Content } = AntdLayout;
 
 export const Layout = () => {
   const { items } = useContext(CartContext);
+  const { pathname } = useLocation();
 
   const props: unknown = {
     count: items.length,
@@ -20,6 +21,26 @@ export const Layout = () => {
   useEffect(() => {
     LocalStorage.items = items;
   }, [items]);
+
+  const getPageTitle = (path: string) => {
+    const dynamicRouteRegex = /\d$/;
+    const url = dynamicRouteRegex.test(path) ? path.replace(dynamicRouteRegex, ':id') : path;
+    let pageTitle = 'Not found';
+
+    const pathsKeys = Object.keys(AppPaths) as (keyof typeof AppPaths)[];
+
+    pathsKeys.forEach((key) => {
+      if (AppPaths[key].path === url) {
+        pageTitle = AppPaths[key].label;
+      }
+    });
+
+    return pageTitle;
+  };
+
+  useEffect(() => {
+    document.title = getPageTitle(pathname);
+  }, [pathname]);
 
   return (
     <AntdLayout className="app-layout">
