@@ -2,9 +2,11 @@ import { Layout as AntdLayout, Badge, BadgeProps } from 'antd';
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { HelpIcon, CartIcon, HomeIcon } from 'components/icons';
 import { useContext, useEffect } from 'react';
+import ReactGA from 'react-ga4';
 import { CartContext } from 'context';
 import { LocalStorage } from 'utils/LocalStorage';
 import { AppPaths } from 'config/paths';
+import { Environment } from 'utils/Environment';
 import './Layout.css';
 
 const { Header, Content } = AntdLayout;
@@ -41,6 +43,10 @@ export const Layout = () => {
   useEffect(() => {
     document.title = getPageTitle(pathname);
   }, [pathname]);
+
+  useEffect(() => {
+    ReactGA.initialize(Environment.gaTrackingId);
+  }, []);
 
   return (
     <AntdLayout className="app-layout">
