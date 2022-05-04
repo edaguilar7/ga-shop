@@ -7,6 +7,7 @@ import { CartContext } from 'context';
 import { LocalStorage } from 'utils/LocalStorage';
 import { AppPaths } from 'config/paths';
 import { Environment } from 'utils/Environment';
+import { GAEvents } from 'utils/GAEvents';
 import './Layout.css';
 
 const { Header, Content } = AntdLayout;
@@ -45,7 +46,14 @@ export const Layout = () => {
   }, [pathname]);
 
   useEffect(() => {
-    ReactGA.initialize(Environment.gaTrackingId);
+    ReactGA.initialize([
+      {
+        trackingId: Environment.gaTrackingId,
+        gtagOptions: {
+          debugMode: true,
+        },
+      },
+    ]);
   }, []);
 
   return (
@@ -54,7 +62,7 @@ export const Layout = () => {
         <Link to={AppPaths.products.path}>
           <HomeIcon className="home-icon" />
         </Link>
-        <Link to={AppPaths.shoppingCart.path}>
+        <Link to={AppPaths.shoppingCart.path} onClick={GAEvents.viewCart}>
           <Badge {...(props as BadgeProps)} />
         </Link>
         <HelpIcon className="help-icon" />
