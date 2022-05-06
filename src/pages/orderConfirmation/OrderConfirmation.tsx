@@ -1,10 +1,11 @@
 import { AppPaths } from 'config/paths';
-import { useContext } from 'react';
+import { useContext, useCallback } from 'react';
 import { CartContext } from 'context';
 import { Product } from 'types/product';
 import { ColumnsType } from 'antd/lib/table';
 import { useNavigate } from 'react-router-dom';
 import { Table, Form, Input, Button } from 'antd';
+import { GAEvents } from 'utils/GAEvents';
 import './OrderConfirmation.css';
 
 type FormData = {
@@ -38,12 +39,16 @@ const OrderConfirmation = () => {
 
   const total = items.reduce((prev, current) => prev + current.price, 0);
 
-  const handleFormSubmission = (values: FormData) => {
-    clear();
-    navigate(AppPaths.purchase.path, {
-      state: values,
-    });
-  };
+  const handleFormSubmission = useCallback(
+    (values: FormData) => {
+      clear();
+      GAEvents.purchase(items);
+      navigate(AppPaths.purchase.path, {
+        state: values,
+      });
+    },
+    [items]
+  );
 
   return (
     <div className="order-confirmation">

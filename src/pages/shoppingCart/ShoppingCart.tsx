@@ -4,6 +4,7 @@ import { AppPaths } from 'config/paths';
 import { CartContext } from 'context';
 import { TrashIcon } from 'components/icons';
 import { List, Avatar, Button, Empty } from 'antd';
+import { GAEvents } from 'utils/GAEvents';
 import './ShoppingCart.css';
 
 const ShoppingCart = () => {
@@ -50,7 +51,9 @@ const ShoppingCart = () => {
       )}
       {!cartIsEmpty && (
         <Button disabled={cartIsEmpty} className="shopping-cart-proceed-button" type="primary">
-          <Link to={AppPaths.orderConfirmation.path}>Proceed to payment</Link>
+          <Link onClick={() => GAEvents.beginCheckout(items)} to={AppPaths.orderConfirmation.path}>
+            Proceed to payment
+          </Link>
         </Button>
       )}
     </div>

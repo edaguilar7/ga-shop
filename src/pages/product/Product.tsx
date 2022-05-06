@@ -1,6 +1,7 @@
 import { useEffect, useContext } from 'react';
 import { Spin, Table, Rate, Button } from 'antd';
 import { Product as ProductType } from 'types/product';
+import { GAEvents } from 'utils/GAEvents';
 import { ColumnsType } from 'antd/lib/table';
 import { CartIcon } from 'components/icons';
 import { StockContext, CartContext } from 'context';
@@ -69,6 +70,16 @@ const Product = () => {
     },
   ];
 
+  const handleAddItem = (product: ProductType) => {
+    addItem(product);
+    GAEvents.addToCart(product);
+  };
+
+  const handleRemoveItem = (product: ProductType) => {
+    removeItem(product);
+    GAEvents.removeFromCart(product);
+  };
+
   return (
     <div className="product-detail">
       <span className="product-detail-image-container">
@@ -80,7 +91,7 @@ const Product = () => {
 
         {checkItemAlreadyInCart(activeProduct.data) ? (
           <Button
-            onClick={() => removeItem(activeProduct.data)}
+            onClick={() => handleRemoveItem(activeProduct.data)}
             className="remove-from-cart-button"
             type="primary"
             danger
@@ -90,7 +101,7 @@ const Product = () => {
           </Button>
         ) : (
           <Button
-            onClick={() => addItem(activeProduct.data)}
+            onClick={() => handleAddItem(activeProduct.data)}
             className="add-to-cart-button"
             type="primary"
           >

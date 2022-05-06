@@ -63,7 +63,7 @@ export class GAEvents {
           price: product.price.toFixed(2),
         },
       ],
-      value: product.price.toFixed(2),
+      value: 0,
     });
   }
 
@@ -81,7 +81,7 @@ export class GAEvents {
           price: product.price.toFixed(2),
         },
       ],
-      value: product.price.toFixed(2),
+      value: 0,
     });
   }
 
