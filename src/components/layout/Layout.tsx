@@ -49,9 +49,6 @@ export const Layout = () => {
     ReactGA.initialize([
       {
         trackingId: Environment.gaTrackingId,
-        gtagOptions: {
-          debugMode: true,
-        },
       },
     ]);
   }, []);
