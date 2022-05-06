@@ -3,8 +3,9 @@ import { useContext, useCallback } from 'react';
 import { CartContext } from 'context';
 import { Product } from 'types/product';
 import { ColumnsType } from 'antd/lib/table';
-import { useNavigate } from 'react-router-dom';
-import { Table, Form, Input, Button } from 'antd';
+import { useNavigate, Link } from 'react-router-dom';
+import { Table, Form, Input, Result } from 'antd';
+import { Button } from 'components/button';
 import { GAEvents } from 'utils/GAEvents';
 import './OrderConfirmation.css';
 
@@ -50,6 +51,19 @@ const OrderConfirmation = () => {
     [items]
   );
 
+  if (!items.length) {
+    return (
+      <Result
+        title="No items in the cart"
+        extra={
+          <Button style={{ margin: '2rem auto 0' }}>
+            <Link to={AppPaths.products.path}>Go to products</Link>
+          </Button>
+        }
+      />
+    );
+  }
+
   return (
     <div className="order-confirmation">
       <Table dataSource={items} columns={columns} pagination={false} />
@@ -84,7 +98,12 @@ const OrderConfirmation = () => {
           </Button>
         </Form.Item>
         <Form.Item style={{ display: 'inline-block', marginLeft: '1em' }}>
-          <Button htmlType="reset">Reset</Button>
+          <Button
+            htmlType="reset"
+            style={{ backgroundColor: '#FFF', color: '#001529', borderColor: '#001529' }}
+          >
+            Reset
+          </Button>
         </Form.Item>
       </Form>
     </div>
