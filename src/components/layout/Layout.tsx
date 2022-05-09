@@ -3,6 +3,7 @@ import { Outlet, Link, useLocation } from 'react-router-dom';
 import { HelpIcon, CartIcon, HomeIcon } from 'components/icons';
 import { useContext, useEffect } from 'react';
 import ReactGA from 'react-ga4';
+import ReactGTM from 'react-gtm-module';
 import { CartContext } from 'context';
 import { LocalStorage } from 'utils/LocalStorage';
 import { AppPaths } from 'config/paths';
@@ -51,6 +52,9 @@ export const Layout = () => {
         trackingId: Environment.gaTrackingId,
       },
     ]);
+    ReactGTM.initialize({
+      gtmId: Environment.gtmTrackingId,
+    });
   }, []);
 
   return (
