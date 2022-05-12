@@ -117,4 +117,9 @@ export class GAEvents {
       items,
     });
   }
+
+  static pageView(path: string) {
+    const page = path.replace(/(\/(\d)+)$/, '/:id');
+    ReactGA4.send({ hitType: 'pageview', page });
+  }
 }

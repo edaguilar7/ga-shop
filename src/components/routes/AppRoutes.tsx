@@ -1,7 +1,8 @@
 import React from 'react';
 import { AppPaths } from 'config/paths';
 import { Layout } from 'components/layout/Layout';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router } from './BrowserRouter';
 
 const OrderConfirmationPage = React.lazy(() => import('pages/orderConfirmation/OrderConfirmation'));
 const ProductPage = React.lazy(() => import('pages/product/Product'));
