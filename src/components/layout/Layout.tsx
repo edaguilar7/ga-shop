@@ -2,7 +2,9 @@ import { Layout as AntdLayout, Badge, BadgeProps } from 'antd';
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { HelpIcon, CartIcon, HomeIcon } from 'components/icons';
 import { useContext, useEffect } from 'react';
+import { Environment } from 'utils/Environment';
 import { CartContext } from 'context';
+import GTMModule from 'react-gtm-module';
 import { LocalStorage } from 'utils/LocalStorage';
 import { AppPaths } from 'config/paths';
 import { GAEvents } from 'utils/GAEvents';
@@ -42,6 +44,12 @@ export const Layout = () => {
   useEffect(() => {
     document.title = getPageTitle(pathname);
   }, [pathname]);
+
+  useEffect(() => {
+    GTMModule.initialize({
+      gtmId: Environment.gtmTrackingId,
+    });
+  }, []);
 
   return (
     <AntdLayout className="app-layout">
