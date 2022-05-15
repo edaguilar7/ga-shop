@@ -1,4 +1,4 @@
-import ReactGA4 from 'react-ga4';
+import GTMModule from 'react-gtm-module';
 import { Product } from 'types/product';
 import { nanoid } from 'nanoid';
 
@@ -10,17 +10,34 @@ export class GAEvents {
       price,
     }));
 
+  private static clearDataLayer = () => {
+    GTMModule.dataLayer({
+      dataLayer: {
+        items: undefined,
+      },
+    });
+  };
+
   /**
    * a user sees a list of items/offerings
    * @param products
    */
   static viewItemList(products: Product[]) {
+    this.clearDataLayer();
     const items = this.extractItemsProps(products);
 
-    ReactGA4.event('view_item_list', {
-      item_list_name: 'All products',
-      item_list_id: -1,
-      items,
+    GTMModule.dataLayer({
+      dataLayer: {
+        event: 'view_item_list',
+        item_list_name: 'All products',
+        item_list_id: -1,
+        items: items.map((item, index) => ({
+          ...item,
+          item_list_name: 'All products',
+          item_list_id: 'all_products',
+          index,
+        })),
+      },
     });
   }
 
@@ -29,16 +46,21 @@ export class GAEvents {
    * @param product
    */
   static viewItem(product: Product) {
-    ReactGA4.event('view_item', {
-      currency: 'USD',
-      items: [
-        {
-          item_id: product.id,
-          item_name: product.title,
-          price: product.price.toFixed(2),
-        },
-      ],
-      value: 0,
+    this.clearDataLayer();
+
+    GTMModule.dataLayer({
+      dataLayer: {
+        event: 'view_item',
+        currency: 'USD',
+        items: [
+          {
+            item_id: product.id,
+            item_name: product.title,
+            price: product.price.toFixed(2),
+          },
+        ],
+        value: 0,
+      },
     });
   }
 
@@ -46,7 +68,11 @@ export class GAEvents {
    * a user views their cart
    */
   static viewCart() {
-    ReactGA4.event('view_cart');
+    GTMModule.dataLayer({
+      dataLayer: {
+        event: 'view_cart',
+      },
+    });
   }
 
   /**
@@ -54,16 +80,21 @@ export class GAEvents {
    * @param product
    */
   static addToCart(product: Product) {
-    ReactGA4.event('add_to_cart', {
-      currency: 'USD',
-      items: [
-        {
-          item_id: product.id,
-          item_name: product.title,
-          price: product.price.toFixed(2),
-        },
-      ],
-      value: 0,
+    this.clearDataLayer();
+
+    GTMModule.dataLayer({
+      dataLayer: {
+        event: 'add_to_cart',
+        currency: 'USD',
+        items: [
+          {
+            item_id: product.id,
+            item_name: product.title,
+            price: product.price.toFixed(2),
+          },
+        ],
+        value: 0,
+      },
     });
   }
 
@@ -72,16 +103,21 @@ export class GAEvents {
    * @param product
    */
   static removeFromCart(product: Product) {
-    ReactGA4.event('remove_from_cart', {
-      currency: 'USD',
-      items: [
-        {
-          item_id: product.id,
-          item_name: product.title,
-          price: product.price.toFixed(2),
-        },
-      ],
-      value: 0,
+    this.clearDataLayer();
+
+    GTMModule.dataLayer({
+      dataLayer: {
+        event: 'remove_from_cart',
+        currency: 'USD',
+        items: [
+          {
+            item_id: product.id,
+            item_name: product.title,
+            price: product.price.toFixed(2),
+          },
+        ],
+        value: 0,
+      },
     });
   }
 
@@ -90,12 +126,16 @@ export class GAEvents {
    * @param itemsToBuy
    */
   static beginCheckout(itemsToBuy: Product[]) {
+    this.clearDataLayer();
     const items = this.extractItemsProps(itemsToBuy);
 
-    ReactGA4.event('begin_checkout', {
-      currency: 'USD',
-      items,
-      value: 0,
+    GTMModule.dataLayer({
+      dataLayer: {
+        event: 'begin_checkout',
+        currency: 'USD',
+        items,
+        value: 0,
+      },
     });
   }
 
@@ -104,22 +144,21 @@ export class GAEvents {
    * @param itemsToBuy
    */
   static purchase(itemsToBuy: Product[]) {
+    this.clearDataLayer();
     const items = this.extractItemsProps(itemsToBuy);
     const SHIPPING = 1.0;
     const value = items.reduce((prev, current) => prev + current.price, SHIPPING);
 
-    ReactGA4.event('purchase', {
-      currency: 'USD',
-      shipping: SHIPPING,
-      tax: 0,
-      transaction_id: nanoid(6),
-      value,
-      items,
+    GTMModule.dataLayer({
+      dataLayer: {
+        event: 'purchase',
+        currency: 'USD',
+        shipping: SHIPPING,
+        tax: 0,
+        transaction_id: nanoid(6),
+        value,
+        items,
+      },
     });
-  }
-
-  static pageView(path: string) {
-    const page = path.replace(/(\/(\d)+)$/, '/:id');
-    ReactGA4.send({ hitType: 'pageview', page });
   }
 }

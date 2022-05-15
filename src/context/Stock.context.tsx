@@ -41,7 +41,7 @@ export const StockProvider = ({ children }: { children: ReactChild }) => {
   const loadProducts = useCallback(async () => {
     try {
       setProducts(setLoading(products, true));
-      const response = await axios.get<Product[]>(`${Environment.baseUrl}/products`);
+      const response = await axios.get<Product[]>(`${Environment.baseUrl}/products?limit=5`);
 
       setProducts(setData(products, response.data));
     } catch (error) {

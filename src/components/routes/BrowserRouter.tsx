@@ -1,9 +1,7 @@
 import { createBrowserHistory } from 'history';
 import { useState, useEffect, useLayoutEffect } from 'react';
-import ReactGa4 from 'react-ga4';
 import { Environment } from 'utils/Environment';
 import { Router, BrowserRouterProps } from 'react-router-dom';
-import { GAEvents } from 'utils/GAEvents';
 import GTMModule from 'react-gtm-module';
 
 export const BrowserRouter = (props: BrowserRouterProps) => {
@@ -14,14 +12,12 @@ export const BrowserRouter = (props: BrowserRouterProps) => {
   });
 
   useLayoutEffect(() => {
-    history.listen((update) => {
+    history.listen(() => {
       setHistoryObj(history);
-      GAEvents.pageView(update.location.pathname);
     });
   }, [history]);
 
   useEffect(() => {
-    ReactGa4.initialize(Environment.gaTrackingId);
     GTMModule.initialize({
       gtmId: Environment.gtmTrackingId,
     });
