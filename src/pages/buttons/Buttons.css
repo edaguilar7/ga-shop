@@ -1,0 +1,3 @@
+.ant-btn.ant-btn-primary > span {
+  pointer-events: none;
+}

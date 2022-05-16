@@ -1,10 +1,8 @@
-import { Layout as AntdLayout, Badge, BadgeProps } from 'antd';
+import { Layout as AntdLayout, Badge, BadgeProps, Tooltip } from 'antd';
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { HelpIcon, CartIcon, HomeIcon } from 'components/icons';
 import { useContext, useEffect } from 'react';
-import { Environment } from 'utils/Environment';
 import { CartContext } from 'context';
-import GTMModule from 'react-gtm-module';
 import { LocalStorage } from 'utils/LocalStorage';
 import { AppPaths } from 'config/paths';
 import { GAEvents } from 'utils/GAEvents';
@@ -45,12 +43,6 @@ export const Layout = () => {
     document.title = getPageTitle(pathname);
   }, [pathname]);
 
-  useEffect(() => {
-    GTMModule.initialize({
-      gtmId: Environment.gtmTrackingId,
-    });
-  }, []);
-
   return (
     <AntdLayout className="app-layout">
       <Header className="app-header">
@@ -60,7 +52,9 @@ export const Layout = () => {
         <Link to={AppPaths.shoppingCart.path} onClick={GAEvents.viewCart}>
           <Badge {...(props as BadgeProps)} />
         </Link>
-        <HelpIcon className="help-icon" />
+        <Tooltip title="Buy what you want, not what you need..." trigger={['click']}>
+          <HelpIcon className="help-icon" role="button" />
+        </Tooltip>
       </Header>
       <Content style={{ minHeight: 'calc(100vh - 64px)' }}>
         <Outlet />
