@@ -1,8 +1,9 @@
 import GTMModule from 'react-gtm-module';
 import { Product } from 'types/product';
 import { nanoid } from 'nanoid';
+import { GACheckout } from './GACheckout';
 
-export class GAEvents {
+export class GAEvents extends GACheckout {
   private static extractItemsProps = (items: Product[]) =>
     items.map(({ id, title, price }) => ({
       item_id: id,
@@ -126,6 +127,7 @@ export class GAEvents {
    * @param itemsToBuy
    */
   static beginCheckout(itemsToBuy: Product[]) {
+    this.resetCheckoutInfo();
     this.clearDataLayer();
     const items = this.extractItemsProps(itemsToBuy);
 
@@ -158,6 +160,54 @@ export class GAEvents {
         transaction_id: nanoid(6),
         value,
         items,
+      },
+    });
+  }
+
+  /**
+   * a user submits their payment information
+   * @param itemsToBuy
+   * @param paymentMethod
+   * @returns
+   */
+  static addPaymentInfo(itemsToBuy: Product[], paymentMethod: string) {
+    if (this.currentPaymentMethod === paymentMethod) return;
+
+    this.clearDataLayer();
+    const items = this.extractItemsProps(itemsToBuy);
+    this.currentPaymentMethod = paymentMethod;
+
+    GTMModule.dataLayer({
+      dataLayer: {
+        event: 'add_payment_info',
+        currency: 'USD',
+        items,
+        value: 0,
+        payment_type: paymentMethod,
+      },
+    });
+  }
+
+  /**
+   * a user submits their shipping information
+   * @param itemsToBuy
+   * @param paymentMethod
+   * @returns
+   */
+  static addShippingInfo(itemsToBuy: Product[], shippingTier: string) {
+    if (this.currentShippingTier === shippingTier) return;
+
+    this.clearDataLayer();
+    const items = this.extractItemsProps(itemsToBuy);
+    this.currentShippingTier = shippingTier;
+
+    GTMModule.dataLayer({
+      dataLayer: {
+        event: 'add_shipping_info',
+        currency: 'USD',
+        items,
+        value: 0,
+        shipping_tier: shippingTier,
       },
     });
   }

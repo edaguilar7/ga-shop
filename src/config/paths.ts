@@ -11,9 +11,9 @@ export const AppPaths = {
     path: '/shopping-cart',
     label: 'Shopping cart',
   },
-  orderConfirmation: {
-    path: '/order-confirmation',
-    label: 'Order confirmation',
+  checkout: {
+    path: '/checkout',
+    label: 'Checkout',
   },
   purchase: {
     path: '/purchase',

@@ -1,0 +1,21 @@
+.checkout {
+  padding: 2em;
+}
+
+.checkout .checkout-total {
+  width: 100%;
+  text-align: right;
+  padding-right: 0.5em;
+  margin: 1em 0 0;
+  font-size: 18px;
+  margin-bottom: 0.5em;
+}
+
+.checkout .checkout-info-title {
+  font-size: 20px;
+}
+
+.checkout .checkout-finish-info {
+  font-size: 16px;
+  margin: 1em 0;
+}

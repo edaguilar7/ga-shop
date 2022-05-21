@@ -51,7 +51,7 @@ const ShoppingCart = () => {
       )}
       {!cartIsEmpty && (
         <Button disabled={cartIsEmpty} className="shopping-cart-proceed-button" type="primary">
-          <Link onClick={() => GAEvents.beginCheckout(items)} to={AppPaths.orderConfirmation.path}>
+          <Link onClick={() => GAEvents.beginCheckout(items)} to={AppPaths.checkout.path}>
             Proceed to payment
           </Link>
         </Button>

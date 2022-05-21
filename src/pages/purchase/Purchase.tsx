@@ -4,8 +4,7 @@ import { Button } from 'components/button';
 import { Result } from 'antd';
 
 type PurchasePageState = {
-  name: string;
-  address: string;
+  from?: string;
 };
 
 const Purchase = () => {
@@ -13,7 +12,7 @@ const Purchase = () => {
 
   const pageState = location.state as PurchasePageState;
 
-  if (!pageState) {
+  if (!pageState?.from) {
     return <Navigate to={AppPaths.products.path} replace />;
   }
 
@@ -21,7 +20,7 @@ const Purchase = () => {
     <Result
       status="success"
       title="Items Successfully Purchased!"
-      subTitle={`${pageState.name} your order will be arriving soon.`}
+      subTitle="Your order will be arriving soon."
       extra={[
         <Button type="primary">
           <Link to={AppPaths.products.path}>Go to home page</Link>
