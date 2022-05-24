@@ -103,7 +103,7 @@ const Checkout = () => {
       <Steps {...stepsProps} />
       <p className="checkout-total">
         Total: &nbsp;&nbsp;
-        <b>${total}</b>
+        <b>${total.toFixed(2)}</b>
       </p>
       {renderChild()}
     </div>
